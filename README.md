@@ -22,7 +22,7 @@ SafeCurl can be included in any PHP project using [Composer](https://getcomposer
 
 ```
 "require": {
-    "j0k3r\safecurl": "~2.0"
+    "foxycart\safecurl": "~2.0"
 }
 ```
 
@@ -114,7 +114,7 @@ try {
 
 In addition to the standard checks, two more are available.
 
-The first is to prevent [DNS Rebinding](https://en.wikipedia.org/wiki/DNS_rebinding) attacks. This can be enabled by calling the `enablePinDns` method on an `Options` object. There is one major issue with this - the SSL certificate **can't** be validated. This is due to the real hostname being sent in the `Host` header, and the URL using the IP address.
+The first is to prevent [DNS Rebinding](https://en.wikipedia.org/wiki/DNS_rebinding) attacks. This can be enabled by calling the `enablePinDns` method on an `Options` object.
 
 ```php
 $options = new Options();
