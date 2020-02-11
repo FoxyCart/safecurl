@@ -100,16 +100,11 @@ class SafeCurl
             $url = Url::validateUrl($url, $this->getOptions());
 
             if ($this->getOptions()->getPinDns()) {
-                //Send a Host header
-                curl_setopt($this->curlHandle, CURLOPT_HTTPHEADER, array('Host: ' . $url['host']));
-                //The "fake" URL
-                curl_setopt($this->curlHandle, CURLOPT_URL, $url['url']);
-                //We also have to disable SSL cert verfication, which is not great
-                //Might be possible to manually check the certificate ourselves?
-                curl_setopt($this->curlHandle, CURLOPT_SSL_VERIFYPEER, false);
-            } else {
-                curl_setopt($this->curlHandle, CURLOPT_URL, $url['url']);
+                $resolveUrl = sprintf('%s:%s', $url['host'], $url['ips'][0]);
+                curl_setopt($this->curlHandle, CURLOPT_RESOLVE, [$resolveUrl]);
             }
+
+            curl_setopt($this->curlHandle, CURLOPT_URL, $url['url']);
 
             // in case of `CURLINFO_REDIRECT_URL` isn't defined
             curl_setopt($this->curlHandle, CURLOPT_HEADER, true);

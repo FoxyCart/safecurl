@@ -55,14 +55,6 @@ class Url
 
         //Validate the host
         $host = self::validateHost($parts['host'], $options);
-        if ($options->getPinDns()) {
-            //Since we're pinning DNS, we replace the host in the URL
-            //with an IP, then get cURL to send the Host header
-            $parts['host'] = $host['ips'][0];
-        } else {
-            //Not pinning DNS, so just use the host
-            $parts['host'] = $host['host'];
-        }
 
         //Rebuild the URL
         $url = self::buildUrl($parts);
