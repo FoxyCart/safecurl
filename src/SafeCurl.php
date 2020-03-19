@@ -19,7 +19,7 @@ class SafeCurl
     private $options;
 
     /* support for PHP version before 5.5 */
-    public const CURLOPT_RESOLVE = 10203;
+    const CURLOPT_RESOLVE = 10203;
 
     /**
      * Returns new instance of SafeCurl\SafeCurl.
