@@ -18,6 +18,9 @@ class SafeCurl
      */
     private $options;
 
+    /* support for PHP version before 5.5 */
+    public const CURLOPT_RESOLVE = 10203;
+
     /**
      * Returns new instance of SafeCurl\SafeCurl.
      *
@@ -101,7 +104,11 @@ class SafeCurl
 
             if ($this->getOptions()->getPinDns()) {
                 $resolveUrl = sprintf('%s:%s', $url['host'], $url['ips'][0]);
-                curl_setopt($this->curlHandle, CURLOPT_RESOLVE, [$resolveUrl]);
+                if (defined('CURLOPT_RESOLVE')) {
+                    curl_setopt($this->curlHandle, CURLOPT_RESOLVE, [$resolveUrl]);
+                } else {
+                    curl_setopt($this->curlHandle, self::CURLOPT_RESOLVE, [$resolveUrl]);
+                }
             }
 
             curl_setopt($this->curlHandle, CURLOPT_URL, $url['url']);
